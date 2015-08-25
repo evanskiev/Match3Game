@@ -76,20 +76,19 @@ Window {
 
             remove: Transition {
                 ParallelAnimation {
-                    NumberAnimation { property: "opacity"; from: 1; to: 0; duration: 250 }
-                    NumberAnimation { easing.type: Easing.InOutQuart; properties: "x,y"; to: 150; duration: 250 }
+//                    NumberAnimation { property: "opacity"; from: 1; to: 0; duration: 200 }
+                    NumberAnimation { easing.type: Easing.InOutQuart; properties: "y"; to: 150; duration: 250 }
+                }
+            }
+
+            add: Transition {
+                ParallelAnimation {
+                    NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 300 }
+
+                    NumberAnimation { easing.type: Easing.OutInQuad; properties: "y"; to: 150; duration: 250 }
                 }
             }
 
         }
     }
-
-
-
-    //    MouseArea {
-    //        anchors.fill: parent
-    //        onClicked: {
-    //            Qt.quit();
-    //        }
-    //    }
 }

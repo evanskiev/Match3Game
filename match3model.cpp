@@ -124,7 +124,7 @@ int Match3Model::getHeight() const
 }
 void Match3Model::fileParser()
 {
-//    QString fileName = QFileDialog::getOpenFileName(0, tr("Open File"));
+    //    QString fileName = QFileDialog::getOpenFileName(0, tr("Open File"));
 
     QFile inputFile("../param.json");
 
@@ -171,11 +171,17 @@ void Match3Model::fillGameGrid()
 
             if (types.contains(type))
             {
+                beginRemoveRows(QModelIndex(), i, i);
+                endRemoveRows();
+
                 QString path = QString("qrc:/sprites/%1.png").arg(type);
 
                 Element element(type, path);
 
                 listOfElements.replace(i, element);
+
+                beginInsertRows(QModelIndex(), i, i);
+                endInsertRows();
             }
         }
     }
@@ -212,8 +218,6 @@ void Match3Model::findMatches()
     {
         removeMatches();
         elementShift();
-        beginResetModel();
-        endResetModel();
         return;
     }
     if (!isFullGrid())
@@ -286,10 +290,8 @@ void Match3Model::findVerticalMatches(int index)
                     {
                         matches.append(temp[i]);
                     }
-
                 }
             }
-
             temp.clear();
             temp.append(index+width);
         }
@@ -346,7 +348,19 @@ void Match3Model::shiftAboveElement(int index)
     {
         if (listOfElements[index].type() != -1)
         {
-            qSwap(listOfElements[cIndex], listOfElements[index]);
+            cIndex = index - cIndex;
+            for (int i = 0; i < cIndex; i++)
+            {
+                move(index, index-1);
+                index -= 1;
+            }
+            index += 1;
+
+            for (int i = 0; i < cIndex - 1; i++)
+            {
+                move(index, index+1);
+                index += 1;
+            }
             return;
         }
         index += width;
