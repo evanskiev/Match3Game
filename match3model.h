@@ -54,7 +54,7 @@ private:
     void delay(int n);
 
 public:
-    explicit Match3Model(QObject *parent = 0);
+    explicit Match3Model(QObject *parent = nullptr);
 
     enum Roles {
         TypeRole = Qt::UserRole + 1,

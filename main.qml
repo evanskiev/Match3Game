@@ -110,14 +110,15 @@ ApplicationWindow {
             focus: true
             interactive: false
 
-            cellHeight: gameField.height/mymodel.columns
-            cellWidth: gameField.height/mymodel.columns
+            cellHeight: gameField.height/mymodel.cellSize
+            cellWidth: gameField.height/mymodel.cellSize
             anchors.fill: parent
             //        anchors.margins: 5
             model: MyModel {
                 id: mymodel
 
                 property var size: (mymodel.rows-1) * mymodel.columns
+                property var cellSize: mymodel.rows-1 > mymodel.columns ?  mymodel.rows-1 : mymodel.columns
 
                 onVictory: {
                     messageDialog.title = "Victory"
@@ -141,7 +142,7 @@ ApplicationWindow {
             }
 
             move: Transition {
-                ParallelAnimation{
+                ParallelAnimation {
                     NumberAnimation { easing.overshoot: 1.2; easing.type: Easing.InOutBack; properties: "x,y"; duration: 200 }
                     NumberAnimation { properties: "rotation"; from: 0; to: 360; duration: 150 }
                 }

@@ -158,14 +158,16 @@ void Match3Model::fileParser() {
 
         QJsonArray arr = obj["types"].toArray();
 
-        for (int i = 0; i < arr.size(); i++) {
-            m_types.append(arr[i].toInt());
+        for (QJsonValue value : arr) {
+            m_types.append(value.toInt());
         }
     }
 }
 
 void Match3Model::createGameGrid() {
-    while (m_listOfElements.size() != m_width * m_height) {
+    int size = m_width * m_height;
+
+    for (int i = 0; i < size; i++) {
         m_listOfElements.append(Element(-1, ""));
     }
 }
@@ -194,7 +196,6 @@ void Match3Model::fillGameGrid() {
         delay(200);
         elementShift();
     }
-//        timer->start(250);
     findMatches();
 }
 
@@ -236,7 +237,7 @@ void Match3Model::findHorizontalMatches(int index) {
 
     for (int i = 0; i < m_width-1; i++) {
         if (m_listOfElements[index].type() == m_listOfElements[index+1].type()
-                                           && m_listOfElements[index].type() != -1) {
+                && m_listOfElements[index].type() != -1) {
             temp.append(index+1);
         }
         else {
@@ -259,7 +260,7 @@ void Match3Model::findVerticalMatches(int index) {
 
     for (int i = 0; i < m_height-2; i++) {
         if (m_listOfElements[index].type() == m_listOfElements[index+m_width].type()
-                                               && m_listOfElements[index].type() != -1) {
+                && m_listOfElements[index].type() != -1) {
             temp.append(index+m_width);
         }
         else {
