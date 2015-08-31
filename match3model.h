@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QAbstractListModel>
 #include <QVector>
-#include <QSet>
+#include <QTimer>
 #include "element.h"
 
 class Match3Model : public QAbstractListModel
@@ -12,31 +12,46 @@ class Match3Model : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(int columns READ getWidth)
     Q_PROPERTY(int rows READ getHeight)
+    Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
+    Q_PROPERTY(int minScore READ getMinScore NOTIFY minScoreChanged)
+    Q_PROPERTY(int maxMoves READ getMaxMoves NOTIFY maxMovesChanged)
+    Q_PROPERTY(int moveCounter READ getMoveCounter NOTIFY moveCounterChanged)
 
 private:
-    QVector<Element> listOfElements;
-    int width;
-    int height;
-    QVector<int> types;
-    QVector<int> matches;
-    int elementScore;
-    int minScore;
-    int maxMoves;
-    int currentIndex;
-    int score;
+    QVector<Element> m_listOfElements;
+    int m_width;
+    int m_height;
+    QVector<int> m_types;
+    QVector<int> m_matches;
+    int m_elementScore;
+    int m_minScore;
+    int m_maxMoves;
+    int m_currentIndex;
+    int m_score;
+    int m_moveCounter;
+    QTimer *timer;
 
+private:
     void fileParser();
     void createGameGrid();
-    void fillGameGrid();
+
     void move(int from, int to);
-    void findMatches();
+
     void findHorizontalMatches(int index);
     void findVerticalMatches(int index);
     void removeMatches();
     void elementShift();
+
     void shiftAboveElement(int index);
-    bool isMoved();
     bool isFullGrid();
+    void checkForVictory();
+    bool isMoved();
+    void moveIncrement();
+    void scoreIncrement();
+    void scoreReset();
+    void checkForMoveRestore(int from, int to);
+
+    void delay(int n);
 
 public:
     explicit Match3Model(QObject *parent = 0);
@@ -55,10 +70,23 @@ public:
 
     int getWidth() const;
     int getHeight() const;
+    int getScore() const;
+    int getMinScore() const;
+    int getMaxMoves() const;
+    int getMoveCounter() const;
 
 signals:
+    void scoreChanged();
+    void minScoreChanged();
+    void maxMovesChanged();
+    void moveCounterChanged();
+    void victory();
+    void defeat();
 
 public slots:
+    void newGame();
+    void fillGameGrid();
+    void findMatches();
 };
 
 #endif // MATCH3MODEL_H

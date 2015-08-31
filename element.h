@@ -7,8 +7,8 @@
 class Element
 {
 protected:
-    int _type;
-    QString _path;
+    int m_type;
+    QString m_path;
 
 public:
     Element();
