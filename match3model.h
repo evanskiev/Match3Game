@@ -10,8 +10,8 @@
 class Match3Model : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(int columns READ getWidth)
-    Q_PROPERTY(int rows READ getHeight)
+    Q_PROPERTY(int columns READ getWidth NOTIFY columnsChanged)
+    Q_PROPERTY(int rows READ getHeight NOTIFY rowsChanged)
     Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
     Q_PROPERTY(int minScore READ getMinScore NOTIFY minScoreChanged)
     Q_PROPERTY(int maxMoves READ getMaxMoves NOTIFY maxMovesChanged)
@@ -76,6 +76,8 @@ public:
     int getMoveCounter() const;
 
 signals:
+    void rowsChanged();
+    void columnsChanged();
     void scoreChanged();
     void minScoreChanged();
     void maxMovesChanged();

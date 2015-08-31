@@ -100,8 +100,8 @@ ApplicationWindow {
 
     Rectangle {
         id: gameField
-        width: 700
-        height: 700
+        width: mymodel.columns * 70
+        height: (mymodel.rows - 1) * 70
         anchors.centerIn: parent
         color: "transparent"
 
@@ -125,7 +125,7 @@ ApplicationWindow {
 
                 onDefeat: {
                     messageDialog.title = "Defeat"
-                    messageDialog.informativeText = "Congratulations, you are the loser!"
+                    messageDialog.informativeText = "Congratulations, you are the not winner!"
                     messageDialog.open()
                 }
             }
