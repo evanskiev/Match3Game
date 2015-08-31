@@ -191,7 +191,7 @@ void Match3Model::fillGameGrid() {
                 }
             }
         }
-        delay(300);
+        delay(200);
         elementShift();
     }
 //        timer->start(250);
