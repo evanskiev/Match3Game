@@ -125,7 +125,7 @@ ApplicationWindow {
 
                 onDefeat: {
                     messageDialog.title = "Defeat"
-                    messageDialog.informativeText = "Congratulations, you are the not winner!"
+                    messageDialog.informativeText = "Congratulations, you are not winner!"
                     messageDialog.open()
                 }
             }
