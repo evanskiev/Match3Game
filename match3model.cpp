@@ -310,11 +310,13 @@ void Match3Model::shiftAboveElement(int index) {
     while (index < m_width*m_height) {
         if (m_listOfElements[index].type() != -1) {
             cIndex = index - cIndex;
+
             for (int i = 0; i < cIndex; i++) {
                 move(index, index-1);
                 index -= 1;
             }
             index += 1;
+
             for (int i = 0; i < cIndex - 1; i++) {
                 move(index, index+1);
                 index += 1;

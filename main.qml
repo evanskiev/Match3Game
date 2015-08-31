@@ -45,11 +45,11 @@ ApplicationWindow {
                 color: "transparent"
                 anchors.centerIn: parent
                 anchors.fill: parent
-                width: 50
-                height: 50
-                visible: index > 99 ? false : true
+
+                visible: index > mymodel.size - 1 ? false : true
 
                 Image {
+                    id: imagea
                     anchors.centerIn: parent
                     anchors.fill: parent
                     source: path
@@ -80,7 +80,7 @@ ApplicationWindow {
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: 25
+            anchors.leftMargin: 50
 
         }
 
@@ -93,15 +93,15 @@ ApplicationWindow {
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
-            anchors.rightMargin: 25
+            anchors.rightMargin: 50
 
         }
     }
 
     Rectangle {
         id: gameField
-        width: mymodel.columns * 70
-        height: (mymodel.rows - 1) * 70
+        width:  700//mymodel.columns * 70
+        height:  700//(mymodel.rows - 1) * 70
         anchors.centerIn: parent
         color: "transparent"
 
@@ -116,6 +116,8 @@ ApplicationWindow {
             //        anchors.margins: 5
             model: MyModel {
                 id: mymodel
+
+                property var size: (mymodel.rows-1) * mymodel.columns
 
                 onVictory: {
                     messageDialog.title = "Victory"
@@ -139,7 +141,10 @@ ApplicationWindow {
             }
 
             move: Transition {
+                ParallelAnimation{
                     NumberAnimation { easing.overshoot: 1.2; easing.type: Easing.InOutBack; properties: "x,y"; duration: 200 }
+                    NumberAnimation { properties: "rotation"; from: 0; to: 360; duration: 150 }
+                }
             }
 
             remove: Transition {
@@ -149,6 +154,7 @@ ApplicationWindow {
             add: Transition {
                     NumberAnimation { property: "opacity"; to: 1; duration: 300 }
             }
+
         }
     }
 
