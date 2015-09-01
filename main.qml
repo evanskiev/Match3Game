@@ -35,8 +35,6 @@ ApplicationWindow {
         anchors.fill: parent
         id: name
         source: "qrc:/sprites/background.png"
-        width: 1024
-        height: 768
     }
 
     Component {
@@ -78,6 +76,7 @@ ApplicationWindow {
         Text {
             id: scoreFild
             text: "SCORE - " + mymodel.score + " / " + mymodel.minScore
+            font.family: "Laksaman"
             font.pixelSize: 25
             font.bold: true
             color: "white"
@@ -91,6 +90,7 @@ ApplicationWindow {
         Text {
             id: moveFild
             text: "MOVES - " + mymodel.moveCounter + " / " + mymodel.maxMoves
+            font.family: "Laksaman"
             font.pixelSize: 25
             font.bold: true
             color: "white"
