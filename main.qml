@@ -26,6 +26,9 @@ ApplicationWindow {
                 }
             }
         }
+    statusBar: StatusBar {
+                    Label { text: "New Game : Ctrl + N" }
+    }
 
     Image {
         anchors.fill: parent
@@ -143,7 +146,7 @@ ApplicationWindow {
 
             move: Transition {
                 ParallelAnimation {
-                    NumberAnimation { easing.overshoot: 1.2; easing.type: Easing.InOutBack; properties: "x,y"; duration: 200 }
+                    NumberAnimation { easing.overshoot: 1.2; easing.type: Easing.OutCirc; properties: "x,y"; duration: 200 }
                     NumberAnimation { properties: "rotation"; from: 0; to: 360; duration: 150 }
                 }
             }
