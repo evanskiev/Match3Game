@@ -26,6 +26,7 @@ ApplicationWindow {
                 }
             }
         }
+
     statusBar: StatusBar {
                     Label { text: "New Game : Ctrl + N" }
     }
@@ -103,8 +104,8 @@ ApplicationWindow {
 
     Rectangle {
         id: gameField
-        width:  700//mymodel.columns * 70
-        height:  700//(mymodel.rows - 1) * 70
+        width:  mymodel.columns >= (mymodel.rows-1) ? 700 :  mymodel.columns * view.cellWidth
+        height: (mymodel.rows-1) >= mymodel.columns ? 700 :  (mymodel.rows-1) * view.cellWidth
         anchors.centerIn: parent
         color: "transparent"
 
@@ -113,15 +114,15 @@ ApplicationWindow {
             focus: true
             interactive: false
 
-            cellHeight: gameField.height/mymodel.cellSize
-            cellWidth: gameField.height/mymodel.cellSize
+            cellHeight: 700/mymodel.cellSize
+            cellWidth: 700/mymodel.cellSize
             anchors.fill: parent
-            //        anchors.margins: 5
+
             model: MyModel {
                 id: mymodel
 
                 property var size: (mymodel.rows-1) * mymodel.columns
-                property var cellSize: mymodel.rows-1 > mymodel.columns ?  mymodel.rows-1 : mymodel.columns
+                property var cellSize: mymodel.rows-1 > mymodel.columns ?  (mymodel.rows-1) : mymodel.columns
 
                 onVictory: {
                     messageDialog.title = "Victory"
