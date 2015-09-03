@@ -9,6 +9,8 @@ ApplicationWindow {
     visible: true
     width: 800
     height: 800
+    minimumHeight: 800
+    minimumWidth: 800
 
     menuBar: MenuBar {
             Menu {
